@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pressure Gauge Department - Ready Stock, Components &amp; Assembly Tracker</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+  <!-- Top Navigation Bar -->
+  <header class="bg-indigo-700 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-white/10 p-2.5 rounded-lg border border-white/20">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">GaugeStock &amp; Operations Manager</h1>
+          <p class="text-xs text-indigo-200">Railway &amp; Industrial Pressure Gauge Tracking &bull; Serial, Lot &amp; OEM Specific</p>
+        </div>
+      </div>
+      
+      <!-- Primary Tab Switcher (Ready Stock, Raw Materials, Assembly Line, Dispatch) -->
+      <div class="flex items-center bg-indigo-900/60 p-1 rounded-xl border border-indigo-500/40 text-xs gap-1">
+        <button id="tabStockBtn" type="button" class="tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all bg-white text-indigo-900 shadow-sm flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          <span>Ready Stock</span>
+        </button>
+
+        <button id="tabComponentsBtn" type="button" class="tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all text-indigo-200 hover:text-white flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          <span>Raw Materials</span>
+          <span id="componentsBadgeCount" class="bg-indigo-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">0</span>
+        </button>
+
+        <button id="tabAssemblyBtn" type="button" class="tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all text-indigo-200 hover:text-white flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
+          <span>Assembly Line</span>
+          <span id="assemblyBadgeCount" class="bg-emerald-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">BOM</span>
+        </button>
+
+        <button id="tabDispatchBtn" type="button" class="tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all text-indigo-200 hover:text-white flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+          </svg>
+          <span>Dispatch Center</span>
+          <span id="dispatchBadgeCount" class="bg-indigo-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Stat Cards (Dashboard Overview) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Ready Stock</p>
+        <p id="totalGaugesCount" class="text-2xl font-bold text-slate-900 mt-1">0</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Available units</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Unique Models</p>
+        <p id="totalModelsCount" class="text-2xl font-bold text-slate-900 mt-1">0</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Active variants</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Bottom Entry</p>
+        <p id="bottomEntryCount" class="text-2xl font-bold text-emerald-600 mt-1">0</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Vertical mount</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Back Entry</p>
+        <p id="backEntryCount" class="text-2xl font-bold text-indigo-600 mt-1">0</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Panel / rear mount</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Raw Material Value</p>
+        <p id="rawMaterialValueCount" class="text-xl font-bold text-purple-600 mt-1">₹ 0</p>
+        <p class="text-[11px] text-slate-400 mt-0.5">Inventory in stock</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <p class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Dispatched / Low</p>
+        </div>
+        <div class="flex items-baseline gap-2 mt-1">
+          <p id="totalDispatchedCount" class="text-2xl font-bold text-blue-600">0</p>
+          <span class="text-xs text-slate-400">/</span>
+          <p id="lowStockCount" class="text-base font-bold text-amber-600" title="Low stock ready units">0 low</p>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-0.5">Shipped / &lt;5 alert</p>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Ready Stock Management -->
+    <div id="readyStockSection" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Form Column: Add Ready Stock -->
+      <section class="lg:col-span-4">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm sticky top-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900">Add Ready Gauge Lot</h2>
+              <p class="text-xs text-slate-500">Customer OEM, type &amp; auto-serial tracking</p>
+            </div>
+            <span class="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-md font-medium">New Lot</span>
+          </div>
+
+          <form id="addGaugeForm" class="space-y-4">
+            <!-- Customer OEM Option -->
+            <div>
+              <label for="customerTarget" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Customer / OEM Project <span class="text-rose-500">*</span>
+              </label>
+              <select id="customerTarget" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                <option value="Siemens" selected>Siemens</option>
+                <option value="Wabtec">Wabtec</option>
+                <option value="Medha">Medha</option>
+                <option value="Titagarh">Titagarh</option>
+                <option value="Escorts">Escorts</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+
+            <!-- Dial Size and Sub-Category Type -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="dialSize" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Dial Size <span class="text-rose-500">*</span>
+                </label>
+                <select id="dialSize" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <option value="100 mm (4&quot;)" selected>100 mm (4")</option>
+                  <option value="63 mm (2.5&quot;)">63 mm (2.5")</option>
+                  <option value="150 mm (6&quot;)">150 mm (6")</option>
+                  <option value="50 mm (2&quot;)">50 mm (2")</option>
+                  <option value="250 mm (10&quot;)">250 mm (10")</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="gaugeSubCategory" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Sub-Category <span class="text-rose-500">*</span>
+                </label>
+                <select id="gaugeSubCategory" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                  <option value="Duplex" selected>Duplex</option>
+                  <option value="Single">Single</option>
+                  <option value="MR FP">MR FP</option>
+                  <option value="BC1 BC2">BC1 BC2</option>
+                  <option value="Brake Pipe">Brake Pipe</option>
+                  <option value="Park Brake">Park Brake</option>
+                  <option value="Differential">Differential</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Entry Category (Bottom vs Back) -->
+            <div>
+              <label for="entryCategory" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Entry Category <span class="text-rose-500">*</span>
+              </label>
+              <select id="entryCategory" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="Bottom Entry" selected>Bottom Entry (Vertical Mount)</option>
+                <option value="Back Entry">Back Entry (Rear / Panel Mount)</option>
+              </select>
+            </div>
+
+            <!-- Pressure Range -->
+            <div>
+              <label for="pressureRange" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Pressure Range <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="pressureRange" required placeholder="e.g. 0 - 10 bar, 0 - 16 bar, 0 - 6 kg/cm²" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <!-- LED Type (External PCB / Internal PCB) & Colour (White / Green) -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="ledType" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  LED Type <span class="text-rose-500">*</span>
+                </label>
+                <select id="ledType" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                  <option value="External PCB" selected>External PCB</option>
+                  <option value="Internal PCB">Internal PCB</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ledColour" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Colour <span class="text-rose-500">*</span>
+                </label>
+                <select id="ledColour" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                  <option value="White" selected>White</option>
+                  <option value="Green">Green</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Connection Thread (includes 3/8" BSP and Other with manual entry) -->
+            <div>
+              <label for="connectionType" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Thread Connection <span class="text-rose-500">*</span>
+              </label>
+              <select id="connectionType" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="1/2&quot; BSP (M)" selected>1/2" BSP (M)</option>
+                <option value="3/8&quot; BSP (M)">3/8" BSP (M)</option>
+                <option value="1/4&quot; NPT (M)">1/4" NPT (M)</option>
+                <option value="1/2&quot; NPT (M)">1/2" NPT (M)</option>
+                <option value="1/4&quot; BSP (M)">1/4" BSP (M)</option>
+                <option value="Dual Connection (M16 / 1/2&quot;)">Dual Connection (M16 / 1/2")</option>
+                <option value="Other">Other (Custom Manual Entry)</option>
+              </select>
+              <div id="connectionOtherWrap" class="hidden mt-2">
+                <input type="text" id="connectionOtherInput" placeholder="Type custom thread size (e.g. M20x1.5, 3/8&quot; NPT)" class="w-full rounded-lg border border-indigo-300 bg-indigo-50/50 px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+            </div>
+
+            <!-- Lot Size / Quantity -->
+            <div>
+              <label for="quantity" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Lot Size (Quantity to Add) <span class="text-rose-500">*</span>
+              </label>
+              <input type="number" id="quantity" required min="1" max="10000" value="25" placeholder="e.g. 25" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <!-- Serial Number & Month/Year Configuration (Directly Below Lot Size) -->
+            <div class="bg-indigo-50/50 border border-indigo-200/90 rounded-xl p-3.5 space-y-3 shadow-sm">
+              <div class="flex items-center justify-between text-xs font-bold text-indigo-950 border-b border-indigo-200/60 pb-2">
+                <span class="flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                  </svg>
+                  Serial Number &amp; Manufacturing Setup
+                </span>
+                <span class="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Traceability</span>
+              </div>
+
+              <!-- Starting Serial Number & Month Year -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="startSerialInput" class="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                    Starting Serial No <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="number" id="startSerialInput" required min="1" value="5001" placeholder="e.g. 5001" class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <span class="text-[10px] text-slate-400 block mt-0.5">Editable start sequence</span>
+                </div>
+
+                <div>
+                  <label for="mfgMonthYear" class="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                    Month &amp; Year (Mfd) <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="month" id="mfgMonthYear" required value="2026-10" class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                  <span class="text-[10px] text-slate-400 block mt-0.5">Production period</span>
+                </div>
+              </div>
+
+              <!-- Ending Serial Number (Auto-calculated including Lot Size) -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label for="endSerialInput" class="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider">
+                    Ending Serial No (Auto-Calculated)
+                  </label>
+                  <span class="text-[10px] text-indigo-600 font-medium">Formula: Start + Lot Size - 1</span>
+                </div>
+                <div class="relative">
+                  <input type="text" id="endSerialInput" readonly value="5025" class="w-full rounded-lg border border-indigo-200 bg-white px-3 py-1.5 text-xs font-mono font-bold text-indigo-700 cursor-not-allowed shadow-inner">
+                  <span class="absolute right-2 top-1.5 text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Auto Computed</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Automatic Serial Number & Lot Preview Box -->
+            <div class="bg-indigo-50/70 border border-indigo-200 rounded-lg p-3 text-xs space-y-1.5">
+              <div class="flex items-center justify-between font-semibold text-indigo-900">
+                <span>Assigned Lot No:</span>
+                <span id="previewLotNo" class="font-mono bg-white px-2 py-0.5 rounded border border-indigo-200">LOT-26-093</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-600 pt-0.5">
+                <span>Calculated Serial Range:</span>
+                <span id="previewSerialRange" class="font-mono font-bold text-indigo-700 bg-white px-2 py-0.5 rounded border border-indigo-200">PG26-5001 → 5025</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-500 text-[11px] pt-1 border-t border-indigo-200/60">
+                <span>Manufacturing Tag:</span>
+                <span id="previewMfgSummary" class="font-medium text-slate-700 bg-white px-2 py-0.5 rounded border border-indigo-200">Mfd: 10/2026 &bull; 25 units</span>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-150 shadow-sm text-sm flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Add to Ready Stock</span>
+            </button>
+
+            <button type="button" id="switchToAssemblyBtn" class="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 font-medium py-2 px-4 rounded-lg transition duration-150 text-xs flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+              <span>Or Assemble via BOM (Deduct Raw Materials)</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Table Column: Current Stock & Enhanced Filters -->
+      <section class="lg:col-span-8">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <!-- Header and Category Filter Tabs -->
+          <div class="p-5 border-b border-slate-100 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h2 class="text-lg font-semibold text-slate-900">Ready Gauge Inventory</h2>
+                <p class="text-xs text-slate-500">Calibrated gauges categorized by Customer OEM, Sub-Category &amp; Serials</p>
+              </div>
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <input type="text" id="searchInput" placeholder="Search customer, serial, type, lot..." class="w-full sm:w-56 rounded-lg border border-slate-300 px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="button" id="exportStockCSVBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Export ready stock to Excel/CSV">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  <span>Export CSV</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Multi-Dimension Filters Toolbar -->
+            <div class="space-y-2.5 pt-2 border-t border-slate-100">
+              <!-- Customer OEM Filter Pills -->
+              <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                <span class="text-slate-500 font-semibold mr-1">Customer:</span>
+                <button type="button" class="customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-indigo-600 text-white" data-customer="All">All OEMs</button>
+                <button type="button" class="customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-customer="Siemens">Siemens</button>
+                <button type="button" class="customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-customer="Wabtec">Wabtec</button>
+                <button type="button" class="customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-customer="Medha">Medha</button>
+                <button type="button" class="customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-customer="Titagarh">Titagarh</button>
+                <button type="button" class="customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-customer="Escorts">Escorts</button>
+                <button type="button" class="customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-customer="Others">Others</button>
+              </div>
+
+              <!-- Sub-Category & Entry Dropdowns Toolbar -->
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                <div class="flex flex-wrap items-center gap-3 text-xs">
+                  <div class="flex items-center gap-1.5">
+                    <label for="subCategoryFilterSelect" class="text-slate-500 font-medium">Sub-Category:</label>
+                    <select id="subCategoryFilterSelect" class="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+                      <option value="All">All Sub-Categories</option>
+                      <option value="Duplex">Duplex</option>
+                      <option value="Single">Single</option>
+                      <option value="MR FP">MR FP</option>
+                      <option value="BC1 BC2">BC1 BC2</option>
+                      <option value="Brake Pipe">Brake Pipe</option>
+                      <option value="Park Brake">Park Brake</option>
+                      <option value="Differential">Differential</option>
+                      <option value="Others">Others</option>
+                    </select>
+                  </div>
+
+                  <div class="flex items-center gap-1.5">
+                    <label for="colourFilterSelect" class="text-slate-500 font-medium">LED Colour:</label>
+                    <select id="colourFilterSelect" class="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                      <option value="All">All Colours</option>
+                      <option value="White">White</option>
+                      <option value="Green">Green</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Entry Orientation Toggle -->
+                <div class="flex items-center gap-1 text-xs">
+                  <span class="text-slate-500 font-medium mr-1">Entry:</span>
+                  <button type="button" class="category-filter-btn px-2.5 py-0.5 rounded text-xs font-semibold transition-colors bg-indigo-600 text-white" data-entry="All">All</button>
+                  <button type="button" class="category-filter-btn px-2.5 py-0.5 rounded text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-entry="Bottom Entry">Bottom Entry</button>
+                  <button type="button" class="category-filter-btn px-2.5 py-0.5 rounded text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-entry="Back Entry">Back Entry</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600">
+              <thead class="bg-slate-50 text-slate-700 text-xs uppercase font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3">Lot &amp; Serial Range</th>
+                  <th class="px-4 py-3">Customer &amp; Type</th>
+                  <th class="px-4 py-3">Size &amp; Entry</th>
+                  <th class="px-4 py-3">Pressure Range &amp; LED</th>
+                  <th class="px-4 py-3 text-center">Ready Qty</th>
+                  <th class="px-4 py-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="stockTableBody" class="divide-y divide-slate-100">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="emptyState" class="hidden p-12 text-center">
+            <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+            <p class="text-sm font-medium text-slate-600">No matching ready gauges found</p>
+            <p class="text-xs text-slate-400 mt-1">Try resetting your customer or sub-category filters.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 2: Raw Material & Component Inventory with Costs & Reorder (Step 3 & 4) -->
+    <div id="componentsSection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Add Component Form -->
+      <section class="lg:col-span-4">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm sticky top-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900">Add Raw Material / Part</h2>
+              <p class="text-xs text-slate-500">Track assembly components &amp; costs</p>
+            </div>
+            <span class="text-xs bg-purple-50 text-purple-700 px-2.5 py-1 rounded-md font-medium">Inward Part</span>
+          </div>
+
+          <form id="addComponentForm" class="space-y-4">
+            <!-- Component Name -->
+            <div>
+              <label for="compName" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Component / Part Name <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="compName" required placeholder="e.g. C-Type Bourdon Tube SS316" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <!-- Category & Applicable Size -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="compCategory" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Category <span class="text-rose-500">*</span>
+                </label>
+                <select id="compCategory" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <option value="Bourdon Tube" selected>Bourdon Tube</option>
+                  <option value="Movement">Movement Mechanism</option>
+                  <option value="Socket &amp; Block">Socket / Process Block</option>
+                  <option value="Case &amp; Bezel">Case &amp; Bezel</option>
+                  <option value="Dial &amp; Pointer">Dial &amp; Pointer</option>
+                  <option value="Electronics &amp; LED">Electronics &amp; LED</option>
+                  <option value="Hardware &amp; Gasket">Hardware &amp; Gasket</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="compSize" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Gauge Size
+                </label>
+                <select id="compSize" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <option value="100 mm (4&quot;)" selected>100 mm (4")</option>
+                  <option value="63 mm (2.5&quot;)">63 mm (2.5")</option>
+                  <option value="150 mm (6&quot;)">150 mm (6")</option>
+                  <option value="50 mm (2&quot;)">50 mm (2")</option>
+                  <option value="Universal">Universal / All</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Cost Per Unit (₹) & Quantity -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="compUnitCost" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Unit Cost (₹) <span class="text-rose-500">*</span>
+                </label>
+                <input type="number" id="compUnitCost" required min="0" step="0.5" placeholder="e.g. 185" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+
+              <div>
+                <label for="compQuantity" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Stock Qty (Pcs) <span class="text-rose-500">*</span>
+                </label>
+                <input type="number" id="compQuantity" required min="0" placeholder="e.g. 100" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+            </div>
+
+            <!-- Reorder Threshold & Location -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="compMinThreshold" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Reorder Alert &lt; <span class="text-rose-500">*</span>
+                </label>
+                <input type="number" id="compMinThreshold" required min="1" value="20" placeholder="e.g. 20" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+
+              <div>
+                <label for="compLocation" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Rack / Bin
+                </label>
+                <input type="text" id="compLocation" placeholder="e.g. Rack A-02" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-150 shadow-sm text-sm flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Add to Component Stock</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Component Table & Filtering -->
+      <section class="lg:col-span-8">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-5 border-b border-slate-100 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h2 class="text-lg font-semibold text-slate-900">Component &amp; Raw Material Ledger</h2>
+                <p class="text-xs text-slate-500">Critical parts needed for assembly with purchase costs</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <input type="text" id="searchCompInput" placeholder="Search part, rack, category..." class="w-full sm:w-44 rounded-lg border border-slate-300 px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="button" id="openReorderModalBtn" class="bg-amber-50 hover:bg-amber-100 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-300 flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Generate Purchase Reorder Slip for low parts">
+                  <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  <span>Reorder Slip</span>
+                </button>
+                <button type="button" id="exportCompCSVBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Export materials to CSV">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  <span>Export CSV</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Category Filter Buttons for Raw Materials -->
+            <div class="flex flex-wrap items-center gap-1.5 text-xs pt-2 border-t border-slate-100">
+              <span class="text-slate-500 font-medium mr-1">Part Type:</span>
+              <button type="button" class="comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-purple-600 text-white" data-cat="All">All Parts</button>
+              <button type="button" class="comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-cat="Bourdon Tube">Bourdon Tubes</button>
+              <button type="button" class="comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-cat="Movement">Movements</button>
+              <button type="button" class="comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-cat="Socket &amp; Block">Sockets/Blocks</button>
+              <button type="button" class="comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-cat="Case &amp; Bezel">Cases</button>
+              <button type="button" class="comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200" data-cat="Electronics &amp; LED">LED/Electronics</button>
+            </div>
+          </div>
+
+          <!-- Component Inventory Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600">
+              <thead class="bg-slate-50 text-slate-700 text-xs uppercase font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3">Component Name</th>
+                  <th class="px-4 py-3">Category &amp; Size</th>
+                  <th class="px-4 py-3">Cost / Unit</th>
+                  <th class="px-4 py-3 text-center">Available Stock</th>
+                  <th class="px-4 py-3 text-right">Total Valuation</th>
+                  <th class="px-4 py-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="componentsTableBody" class="divide-y divide-slate-100">
+                <!-- Dynamically populated component rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="componentsEmptyState" class="hidden p-12 text-center">
+            <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <p class="text-sm font-medium text-slate-600">No components found</p>
+            <p class="text-xs text-slate-400 mt-1">Add components or adjust your category filter.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 3: Assembly Production Action (BOM & Deduction) -->
+    <div id="assemblySection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Assembly Configurator Form -->
+      <section class="lg:col-span-5">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm sticky top-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900">Assembly Production Run</h2>
+              <p class="text-xs text-slate-500">Auto-deduct raw materials &amp; create ready gauges</p>
+            </div>
+            <span class="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-md font-medium">BOM Engine</span>
+          </div>
+
+          <form id="assemblyForm" class="space-y-4">
+            <!-- Customer OEM & Sub-Category for Assembly -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="asmCustomer" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Target Customer <span class="text-rose-500">*</span>
+                </label>
+                <select id="asmCustomer" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium">
+                  <option value="Siemens" selected>Siemens</option>
+                  <option value="Wabtec">Wabtec</option>
+                  <option value="Medha">Medha</option>
+                  <option value="Titagarh">Titagarh</option>
+                  <option value="Escorts">Escorts</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="asmSubCategory" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Sub-Category <span class="text-rose-500">*</span>
+                </label>
+                <select id="asmSubCategory" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium">
+                  <option value="Duplex" selected>Duplex</option>
+                  <option value="Single">Single</option>
+                  <option value="MR FP">MR FP</option>
+                  <option value="BC1 BC2">BC1 BC2</option>
+                  <option value="Brake Pipe">Brake Pipe</option>
+                  <option value="Park Brake">Park Brake</option>
+                  <option value="Differential">Differential</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Dial Size & Entry -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="asmDialSize" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Dial Size <span class="text-rose-500">*</span>
+                </label>
+                <select id="asmDialSize" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                  <option value="100 mm (4&quot;)" selected>100 mm (4")</option>
+                  <option value="63 mm (2.5&quot;)">63 mm (2.5")</option>
+                  <option value="150 mm (6&quot;)">150 mm (6")</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="asmEntryCategory" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Entry Type <span class="text-rose-500">*</span>
+                </label>
+                <select id="asmEntryCategory" required class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                  <option value="Bottom Entry" selected>Bottom Entry</option>
+                  <option value="Back Entry">Back Entry</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Pressure Range -->
+            <div>
+              <label for="asmPressureRange" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Pressure Range <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="asmPressureRange" required value="0 - 10 bar" placeholder="e.g. 0 - 10 bar, 0 - 16 bar" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
+
+            <!-- LED Type (External PCB / Internal PCB) & Colour (White / Green) -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="asmLedType" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  LED Type <span class="text-rose-500">*</span>
+                </label>
+                <select id="asmLedType" required class="w-full rounded-lg border border-slate-300 bg-white px-2 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium">
+                  <option value="External PCB" selected>External PCB</option>
+                  <option value="Internal PCB">Internal PCB</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="asmLedColour" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Colour <span class="text-rose-500">*</span>
+                </label>
+                <select id="asmLedColour" required class="w-full rounded-lg border border-slate-300 bg-white px-2 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium">
+                  <option value="White" selected>White</option>
+                  <option value="Green">Green</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Thread Detail (includes 3/8" BSP and Other) & Lot Size -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="asmConnection" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Thread Type <span class="text-rose-500">*</span>
+                </label>
+                <select id="asmConnection" required class="w-full rounded-lg border border-slate-300 bg-white px-2 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                  <option value="1/2&quot; BSP (M)" selected>1/2" BSP (M)</option>
+                  <option value="3/8&quot; BSP (M)">3/8" BSP (M)</option>
+                  <option value="1/4&quot; NPT (M)">1/4" NPT (M)</option>
+                  <option value="1/2&quot; NPT (M)">1/2" NPT (M)</option>
+                  <option value="Other">Other (Manual Entry)</option>
+                </select>
+                <div id="asmConnectionOtherWrap" class="hidden mt-1.5">
+                  <input type="text" id="asmConnectionOtherInput" placeholder="Type custom thread" class="w-full rounded border border-emerald-300 bg-emerald-50/50 px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                </div>
+              </div>
+
+              <div>
+                <label for="asmQuantity" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Lot Size (Pcs) <span class="text-rose-500">*</span>
+                </label>
+                <input type="number" id="asmQuantity" required min="1" max="500" value="10" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              </div>
+            </div>
+
+            <!-- Assembly Serial Number & Month/Year Configuration (Directly Below Lot Size) -->
+            <div class="bg-emerald-50/50 border border-emerald-200/90 rounded-xl p-3.5 space-y-3 shadow-sm">
+              <div class="flex items-center justify-between text-xs font-bold text-emerald-950 border-b border-emerald-200/60 pb-2">
+                <span class="flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                  </svg>
+                  Assembly Serial Number &amp; Manufacturing Setup
+                </span>
+                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Assembly Lot</span>
+              </div>
+
+              <!-- Starting Serial Number & Month Year -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="asmStartSerialInput" class="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                    Starting Serial No <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="number" id="asmStartSerialInput" required min="1" value="5001" placeholder="e.g. 5001" class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                  <span class="text-[10px] text-slate-400 block mt-0.5">Editable start sequence</span>
+                </div>
+
+                <div>
+                  <label for="asmMfgMonthYear" class="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                    Month &amp; Year (Mfd) <span class="text-rose-500">*</span>
+                  </label>
+                  <input type="month" id="asmMfgMonthYear" required value="2026-10" class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium">
+                  <span class="text-[10px] text-slate-400 block mt-0.5">Production period</span>
+                </div>
+              </div>
+
+              <!-- Ending Serial Number (Auto-calculated including Lot Size) -->
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label for="asmEndSerialInput" class="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider">
+                    Ending Serial No (Auto-Calculated)
+                  </label>
+                  <span class="text-[10px] text-emerald-700 font-medium">Formula: Start + Lot Size - 1</span>
+                </div>
+                <div class="relative">
+                  <input type="text" id="asmEndSerialInput" readonly value="5010" class="w-full rounded-lg border border-emerald-200 bg-white px-3 py-1.5 text-xs font-mono font-bold text-emerald-800 cursor-not-allowed shadow-inner">
+                  <span class="absolute right-2 top-1.5 text-[10px] text-emerald-700 font-bold bg-emerald-100 px-1.5 py-0.5 rounded border border-emerald-200">Auto Computed</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Assembly Auto Serial Number Preview -->
+            <div class="bg-emerald-50/70 border border-emerald-200 rounded-lg p-3 text-xs space-y-1.5">
+              <div class="flex items-center justify-between font-semibold text-emerald-950">
+                <span>Lot Assigned:</span>
+                <span id="asmPreviewLotNo" class="font-mono bg-white px-2 py-0.5 rounded border border-emerald-200">LOT-26-093</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-600 pt-0.5">
+                <span>Calculated Serial Range:</span>
+                <span id="asmPreviewSerialRange" class="font-mono font-bold text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-200">PG26-5001 → 5010</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-500 text-[11px] pt-1 border-t border-emerald-200/60">
+                <span>Manufacturing Tag:</span>
+                <span id="asmPreviewMfgSummary" class="font-medium text-slate-700 bg-white px-2 py-0.5 rounded border border-emerald-200">Mfd: 10/2026 &bull; 10 units</span>
+              </div>
+            </div>
+
+            <!-- Live Bill of Materials (BOM) Calculation Card -->
+            <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-2">
+              <div class="flex items-center justify-between text-xs font-semibold text-slate-700 border-b border-slate-200 pb-1.5">
+                <span>Bill of Materials (Per Gauge)</span>
+                <span id="bomUnitCostDisplay" class="text-emerald-700 font-bold">₹ 0 / pc</span>
+              </div>
+              <ul id="bomItemsList" class="text-xs space-y-1 text-slate-600">
+                <!-- Dynamically populated BOM items -->
+              </ul>
+              <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
+                <span class="font-bold text-slate-700">Total Batch Cost:</span>
+                <span id="bomBatchCostDisplay" class="font-bold text-base text-slate-900">₹ 0</span>
+              </div>
+              <div id="bomFeasibilityNotice" class="text-[11px] font-medium pt-1">
+                <!-- Feasibility message -->
+              </div>
+            </div>
+
+            <button type="submit" id="executeAssemblyBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-150 shadow-sm text-sm flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Execute Assembly &amp; Transfer to Ready Stock</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Assembly Production Log & Finished Work Orders -->
+      <section class="lg:col-span-7">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900">Assembly Production Log</h2>
+              <p class="text-xs text-slate-500">History of manufactured lots, serial ranges &amp; material cost</p>
+            </div>
+            <button type="button" id="exportAssemblyCSVBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Export assembly logs to CSV">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              <span>Export CSV</span>
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600">
+              <thead class="bg-slate-50 text-slate-700 text-xs uppercase font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3">Lot &amp; Serials</th>
+                  <th class="px-4 py-3">OEM &amp; Gauge Spec</th>
+                  <th class="px-4 py-3 text-center">Lot Size</th>
+                  <th class="px-4 py-3 text-right">Production Cost</th>
+                  <th class="px-4 py-3 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody id="assemblyTableBody" class="divide-y divide-slate-100">
+                <!-- Dynamically populated assembly records -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="assemblyEmptyState" class="hidden p-12 text-center">
+            <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+            <p class="text-sm font-medium text-slate-600">No assembly runs recorded</p>
+            <p class="text-xs text-slate-400 mt-1">Configure your first batch on the left and run assembly.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 4: Dispatch Management & Logs (Step 2) -->
+    <div id="dispatchSection" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Dispatch Form Column -->
+      <section class="lg:col-span-4">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm sticky top-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900">New Dispatch Entry</h2>
+              <p class="text-xs text-slate-500">Deduct stock with serial number tracking</p>
+            </div>
+            <span class="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-md font-medium">Outward</span>
+          </div>
+
+          <form id="dispatchForm" class="space-y-4">
+            <!-- Select Gauge from Ready Stock -->
+            <div>
+              <label for="dispatchGaugeSelect" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Select Ready Gauge Lot <span class="text-rose-500">*</span>
+              </label>
+              <select id="dispatchGaugeSelect" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <!-- Dynamically populated from available stock -->
+              </select>
+              <div id="selectedStockNotice" class="mt-1.5 flex flex-wrap items-center justify-between text-[11px] bg-slate-50 p-2 rounded border border-slate-200">
+                <span>Available: <strong id="availableQtySpan" class="text-slate-800">0 pcs</strong></span>
+                <span id="dispatchSerialRangePreview" class="font-mono text-indigo-700 font-semibold">SN: -</span>
+              </div>
+            </div>
+
+            <!-- Customer / Consignee -->
+            <div>
+              <label for="dispatchCustomer" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Customer / Consignee <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="dispatchCustomer" required placeholder="e.g. Siemens Rail Systems / Wabtec India" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <!-- Dispatch Challan / DC No -->
+              <div>
+                <label for="dispatchChallan" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  DC / Challan No <span class="text-rose-500">*</span>
+                </label>
+                <input type="text" id="dispatchChallan" required placeholder="e.g. DC-2026-104" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+
+              <!-- Dispatch Date -->
+              <div>
+                <label for="dispatchDate" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                  Dispatch Date <span class="text-rose-500">*</span>
+                </label>
+                <input type="date" id="dispatchDate" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+            </div>
+
+            <!-- Quantity to Dispatch -->
+            <div>
+              <label for="dispatchQuantity" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Dispatch Quantity <span class="text-rose-500">*</span>
+              </label>
+              <input type="number" id="dispatchQuantity" required min="1" placeholder="e.g. 10" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <!-- Destination / Notes -->
+            <div>
+              <label for="dispatchNotes" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                Destination / PO Notes
+              </label>
+              <input type="text" id="dispatchNotes" placeholder="e.g. Loco Shed / Metro Car Project" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-150 shadow-sm text-sm flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Confirm &amp; Deduct Stock</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Dispatch History & Log Column -->
+      <section class="lg:col-span-8">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-900">Dispatch Outward Register</h2>
+              <p class="text-xs text-slate-500">Historical record of shipped pressure gauges with serial numbers</p>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <input type="text" id="searchDispatchInput" placeholder="Search customer, serial, challan..." class="w-full sm:w-52 rounded-lg border border-slate-300 px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <button type="button" id="exportDispatchCSVBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Export dispatches to CSV">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600">
+              <thead class="bg-slate-50 text-slate-700 text-xs uppercase font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3">DC / Date</th>
+                  <th class="px-4 py-3">Consignee &amp; Destination</th>
+                  <th class="px-4 py-3">Dispatched Serials</th>
+                  <th class="px-4 py-3 text-center">Shipped Qty</th>
+                  <th class="px-4 py-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="dispatchTableBody" class="divide-y divide-slate-100">
+                <!-- Dynamically populated dispatch records -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="dispatchEmptyState" class="hidden p-12 text-center">
+            <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <p class="text-sm font-medium text-slate-600">No dispatch records found</p>
+            <p class="text-xs text-slate-400 mt-1">Use the dispatch form to record your first outward shipment.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- In-Page Purchase Reorder Slip Modal (Zero Popups) -->
+  <div id="reorderModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <span>Purchase Reorder Slip (Low Stock Parts)</span>
+            <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-bold">Action Needed</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">Automated procurement recommendations based on minimum inventory thresholds</p>
+        </div>
+        <button type="button" id="closeReorderModalBtn" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-200 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 overflow-y-auto flex-1 space-y-4">
+        <div class="flex items-center justify-between text-xs bg-amber-50 border border-amber-200 text-amber-900 p-3 rounded-lg">
+          <span>Target Reorder Formula: Restock to 2x Minimum Threshold</span>
+          <span class="font-bold">Total Estimated Budget: <span id="reorderTotalBudget" class="text-slate-900">₹ 0</span></span>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-lg">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 uppercase">
+              <tr>
+                <th class="px-3 py-2.5">Component</th>
+                <th class="px-3 py-2.5">Location</th>
+                <th class="px-3 py-2.5 text-center">Current</th>
+                <th class="px-3 py-2.5 text-center">Min Level</th>
+                <th class="px-3 py-2.5 text-center">Suggested PO</th>
+                <th class="px-3 py-2.5 text-right">Est. Cost (₹)</th>
+              </tr>
+            </thead>
+            <tbody id="reorderTableBody" class="divide-y divide-slate-100">
+              <!-- Dynamically populated low stock parts -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
+        <span class="text-xs text-slate-500">Ready for vendor quotation or purchase order</span>
+        <div class="flex items-center gap-2">
+          <button type="button" id="downloadReorderCSVBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-xs flex items-center gap-1.5 shadow-sm transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span>Download PO Slip (CSV)</span>
+          </button>
+          <button type="button" id="closeReorderModalBtn2" class="bg-white hover:bg-slate-100 text-slate-700 font-medium px-4 py-2 rounded-lg text-xs border border-slate-300 transition-colors">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- In-Page Toast Notification (no alert/confirm popups) -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-lg shadow-lg transform transition-all duration-300 translate-y-20 opacity-0 pointer-events-none flex items-center gap-2">
+    <span id="toastMessage">Action completed</span>
+  </div>
+
+  <script>
+    // Initial Starter Data for Ready Stock with Customer OEM & Gauge Sub-Category
+    const defaultData = [
+      {
+        id: 1,
+        customer: 'Siemens',
+        subCategory: 'MR FP',
+        lotNo: 'LOT-26-088',
+        lotSize: 45,
+        serialStart: 4901,
+        serialEnd: 4945,
+        serialRange: 'PG26-4901 → PG26-4945',
+        entryCategory: 'Bottom Entry',
+        dialSize: '100 mm (4")',
+        range: '0 - 10 bar',
+        ledType: 'External PCB',
+        ledColour: 'White',
+        connection: '1/2" BSP (M)',
+        quantity: 45
+      },
+      {
+        id: 2,
+        customer: 'Wabtec',
+        subCategory: 'BC1 BC2',
+        lotNo: 'LOT-26-089',
+        lotSize: 18,
+        serialStart: 4946,
+        serialEnd: 4963,
+        serialRange: 'PG26-4946 → PG26-4963',
+        entryCategory: 'Back Entry',
+        dialSize: '100 mm (4")',
+        range: '0 - 10 bar',
+        ledType: 'Internal PCB',
+        ledColour: 'Green',
+        connection: '3/8" BSP (M)',
+        quantity: 18
+      },
+      {
+        id: 3,
+        customer: 'Medha',
+        subCategory: 'Duplex',
+        lotNo: 'LOT-26-090',
+        lotSize: 12,
+        serialStart: 4964,
+        serialEnd: 4975,
+        serialRange: 'PG26-4964 → PG26-4975',
+        entryCategory: 'Back Entry',
+        dialSize: '100 mm (4")',
+        range: '0 - 16 bar',
+        ledType: 'External PCB',
+        ledColour: 'Green',
+        connection: '1/2" BSP (M)',
+        quantity: 12
+      },
+      {
+        id: 4,
+        customer: 'Titagarh',
+        subCategory: 'Brake Pipe',
+        lotNo: 'LOT-26-091',
+        lotSize: 20,
+        serialStart: 4976,
+        serialEnd: 4995,
+        serialRange: 'PG26-4976 → PG26-4995',
+        entryCategory: 'Bottom Entry',
+        dialSize: '100 mm (4")',
+        range: '0 - 6 kg/cm²',
+        ledType: 'Internal PCB',
+        ledColour: 'White',
+        connection: '3/8" BSP (M)',
+        quantity: 20
+      },
+      {
+        id: 5,
+        customer: 'Escorts',
+        subCategory: 'Park Brake',
+        lotNo: 'LOT-26-092',
+        lotSize: 4,
+        serialStart: 4996,
+        serialEnd: 4999,
+        serialRange: 'PG26-4996 → PG26-4999',
+        entryCategory: 'Back Entry',
+        dialSize: '63 mm (2.5")',
+        range: '0 - 10 bar',
+        ledType: 'External PCB',
+        ledColour: 'Green',
+        connection: '1/4" NPT (M)',
+        quantity: 4
+      }
+    ];
+
+    // Initial Starter Data for Raw Materials with Unit Cost (₹)
+    const defaultComponents = [
+      {
+        id: 201,
+        name: 'C-Type Bourdon Tube SS316 (0-10 bar)',
+        category: 'Bourdon Tube',
+        size: '100 mm (4")',
+        unitCost: 185,
+        quantity: 120,
+        minThreshold: 30,
+        location: 'Rack A-02'
+      },
+      {
+        id: 202,
+        name: 'Phosphor Bronze C-Tube (0-16 bar)',
+        category: 'Bourdon Tube',
+        size: '63 mm (2.5")',
+        unitCost: 140,
+        quantity: 65,
+        minThreshold: 20,
+        location: 'Rack A-04'
+      },
+      {
+        id: 203,
+        name: 'SS304 Precision Rotary Movement',
+        category: 'Movement',
+        size: '100 mm (4")',
+        unitCost: 165,
+        quantity: 85,
+        minThreshold: 25,
+        location: 'Bin M-11'
+      },
+      {
+        id: 204,
+        name: 'Bottom Process Block 1/2" BSP (SS316)',
+        category: 'Socket & Block',
+        size: '100 mm (4")',
+        unitCost: 220,
+        quantity: 95,
+        minThreshold: 30,
+        location: 'Rack B-01'
+      },
+      {
+        id: 205,
+        name: 'Back Process Block 3/8" BSP (Brass)',
+        category: 'Socket & Block',
+        size: '100 mm (4")',
+        unitCost: 195,
+        quantity: 50,
+        minThreshold: 20,
+        location: 'Rack B-02'
+      },
+      {
+        id: 206,
+        name: 'Back Process Block 1/4" NPT (Brass)',
+        category: 'Socket & Block',
+        size: '63 mm (2.5")',
+        unitCost: 175,
+        quantity: 40,
+        minThreshold: 20,
+        location: 'Rack B-03'
+      },
+      {
+        id: 207,
+        name: 'SS304 Bayonet Case & Bezel Ring',
+        category: 'Case & Bezel',
+        size: '100 mm (4")',
+        unitCost: 190,
+        quantity: 14,
+        minThreshold: 20,
+        location: 'Rack C-05'
+      },
+      {
+        id: 208,
+        name: 'External PCB LED Module (White)',
+        category: 'Electronics & LED',
+        size: 'Universal',
+        unitCost: 130,
+        quantity: 50,
+        minThreshold: 15,
+        location: 'Elec Cabinet E-1'
+      },
+      {
+        id: 209,
+        name: 'Internal PCB LED Circuit (Green)',
+        category: 'Electronics & LED',
+        size: 'Universal',
+        unitCost: 145,
+        quantity: 8,
+        minThreshold: 12,
+        location: 'Elec Cabinet E-2'
+      }
+    ];
+
+    // Initial Starter Data for Assembly Runs
+    const defaultAssemblyLogs = [
+      {
+        id: 301,
+        date: '2026-10-24',
+        batchCode: 'LOT-26-088',
+        customer: 'Siemens',
+        subCategory: 'MR FP',
+        serialRange: 'PG26-4901 → PG26-4945',
+        dialSize: '100 mm (4")',
+        range: '0 - 10 bar',
+        entry: 'Bottom Entry',
+        ledSpec: 'External PCB (White)',
+        connection: '1/2" BSP (M)',
+        quantity: 45,
+        unitCost: 890,
+        totalCost: 40050
+      }
+    ];
+
+    // Initial Starter Data for Dispatches
+    const defaultDispatches = [
+      {
+        id: 101,
+        gaugeId: 1,
+        challan: 'DC-2026-088',
+        date: '2026-10-25',
+        customer: 'Siemens Rail Systems',
+        destination: 'Kanchrapara Workshop',
+        gaugeDesc: '100 mm (4") | MR FP Duplex | 0 - 10 bar | White LED',
+        lotNo: 'LOT-26-088',
+        dispatchedSerials: 'PG26-4901 → PG26-4910',
+        quantity: 10
+      },
+      {
+        id: 102,
+        gaugeId: 2,
+        challan: 'DC-2026-089',
+        date: '2026-10-26',
+        customer: 'Wabtec India',
+        destination: 'Marhowrah Plant',
+        gaugeDesc: '100 mm (4") | BC1 BC2 | 0 - 10 bar | Green LED',
+        lotNo: 'LOT-26-089',
+        dispatchedSerials: 'PG26-4946 → PG26-4950',
+        quantity: 5
+      }
+    ];
+
+    // State Variables
+    let stock = [];
+    let components = [];
+    let dispatches = [];
+    let assemblyLogs = [];
+    let nextSerialCounter = 5001;
+    let nextLotCounter = 93;
+    let selectedCustomerFilter = 'All';
+    let selectedSubCategoryFilter = 'All';
+    let selectedEntryFilter = 'All';
+    let selectedCompFilter = 'All';
+    let currentTab = 'stock';
+
+    // Safe LocalStorage Loading
+    function loadData() {
+      try {
+        const savedStock = localStorage.getItem('gauge_ready_stock_v5');
+        stock = savedStock ? JSON.parse(savedStock) : [...defaultData];
+      } catch (e) {
+        stock = [...defaultData];
+      }
+
+      try {
+        const savedComponents = localStorage.getItem('gauge_components_v3');
+        components = savedComponents ? JSON.parse(savedComponents) : [...defaultComponents];
+      } catch (e) {
+        components = [...defaultComponents];
+      }
+
+      try {
+        const savedDispatches = localStorage.getItem('gauge_dispatch_log_v3');
+        dispatches = savedDispatches ? JSON.parse(savedDispatches) : [...defaultDispatches];
+      } catch (e) {
+        dispatches = [...defaultDispatches];
+      }
+
+      try {
+        const savedAssembly = localStorage.getItem('gauge_assembly_log_v3');
+        assemblyLogs = savedAssembly ? JSON.parse(savedAssembly) : [...defaultAssemblyLogs];
+      } catch (e) {
+        assemblyLogs = [...defaultAssemblyLogs];
+      }
+
+      try {
+        const savedSerial = localStorage.getItem('gauge_next_serial_no');
+        if (savedSerial) nextSerialCounter = parseInt(savedSerial, 10);
+        const savedLot = localStorage.getItem('gauge_next_lot_no');
+        if (savedLot) nextLotCounter = parseInt(savedLot, 10);
+      } catch (e) {}
+    }
+
+    // Safe LocalStorage Saving
+    function saveData() {
+      try {
+        localStorage.setItem('gauge_ready_stock_v5', JSON.stringify(stock));
+      } catch (e) {}
+
+      try {
+        localStorage.setItem('gauge_components_v3', JSON.stringify(components));
+      } catch (e) {}
+
+      try {
+        localStorage.setItem('gauge_dispatch_log_v3', JSON.stringify(dispatches));
+      } catch (e) {}
+
+      try {
+        localStorage.setItem('gauge_assembly_log_v3', JSON.stringify(assemblyLogs));
+      } catch (e) {}
+
+      try {
+        localStorage.setItem('gauge_next_serial_no', nextSerialCounter.toString());
+        localStorage.setItem('gauge_next_lot_no', nextLotCounter.toString());
+      } catch (e) {}
+    }
+
+    // Show Non-Blocking In-Page Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // Serial & Lot Generator Helper
+    function getLotCode(num) {
+      return `LOT-26-${num.toString().padStart(3, '0')}`;
+    }
+
+    function formatSerial(sn) {
+      return `PG26-${sn.toString().padStart(4, '0')}`;
+    }
+
+    function formatMonthYear(val) {
+      if (!val) return '10/2026';
+      const parts = val.split('-');
+      if (parts.length === 2) {
+        return `${parts[1]}/${parts[0]}`; // Convert YYYY-MM to MM/YYYY
+      }
+      return val;
+    }
+
+    function updateSerialPreviews() {
+      // Direct Add Form Preview & Auto-Calculation
+      const directQtyInput = document.getElementById('quantity');
+      const directQty = Math.max(1, parseInt(directQtyInput ? directQtyInput.value : 25, 10) || 25);
+      
+      const startSerialEl = document.getElementById('startSerialInput');
+      const directStart = parseInt(startSerialEl && startSerialEl.value ? startSerialEl.value : nextSerialCounter, 10) || nextSerialCounter;
+      const directEnd = directStart + directQty - 1;
+
+      const endSerialEl = document.getElementById('endSerialInput');
+      if (endSerialEl) {
+        endSerialEl.value = directEnd;
+      }
+
+      const directLot = getLotCode(nextLotCounter);
+      const mfgEl = document.getElementById('mfgMonthYear');
+      const mfgFormatted = formatMonthYear(mfgEl ? mfgEl.value : '2026-10');
+
+      const previewLotEl = document.getElementById('previewLotNo');
+      if (previewLotEl) previewLotEl.textContent = directLot;
+
+      const previewSerialEl = document.getElementById('previewSerialRange');
+      if (previewSerialEl) previewSerialEl.textContent = `${formatSerial(directStart)} → ${formatSerial(directEnd)}`;
+
+      const previewMfgEl = document.getElementById('previewMfgSummary');
+      if (previewMfgEl) previewMfgEl.textContent = `Mfd: ${mfgFormatted} • ${directQty} units`;
+
+      // Assembly Form Preview & Auto-Calculation
+      const asmQtyInput = document.getElementById('asmQuantity');
+      const asmQty = Math.max(1, parseInt(asmQtyInput ? asmQtyInput.value : 10, 10) || 10);
+      
+      const asmStartEl = document.getElementById('asmStartSerialInput');
+      const asmStart = parseInt(asmStartEl && asmStartEl.value ? asmStartEl.value : nextSerialCounter, 10) || nextSerialCounter;
+      const asmEnd = asmStart + asmQty - 1;
+
+      const asmEndEl = document.getElementById('asmEndSerialInput');
+      if (asmEndEl) {
+        asmEndEl.value = asmEnd;
+      }
+
+      const asmLot = getLotCode(nextLotCounter);
+      const asmMfgEl = document.getElementById('asmMfgMonthYear');
+      const asmMfgFormatted = formatMonthYear(asmMfgEl ? asmMfgEl.value : '2026-10');
+
+      const asmPreviewLotEl = document.getElementById('asmPreviewLotNo');
+      if (asmPreviewLotEl) asmPreviewLotEl.textContent = asmLot;
+
+      const asmPreviewSerialEl = document.getElementById('asmPreviewSerialRange');
+      if (asmPreviewSerialEl) asmPreviewSerialEl.textContent = `${formatSerial(asmStart)} → ${formatSerial(asmEnd)}`;
+
+      const asmPreviewMfgEl = document.getElementById('asmPreviewMfgSummary');
+      if (asmPreviewMfgEl) asmPreviewMfgEl.textContent = `Mfd: ${asmMfgFormatted} • ${asmQty} units`;
+    }
+
+    // Universal Safe CSV Export Engine
+    function exportToCSV(filename, rows) {
+      const processRow = function (row) {
+        let finalVal = '';
+        for (let j = 0; j < row.length; j++) {
+          let innerValue = row[j] === null || row[j] === undefined ? '' : row[j].toString();
+          if (row[j] instanceof Date) {
+            innerValue = row[j].toLocaleString();
+          }
+          let result = innerValue.replace(/"/g, '""');
+          if (result.search(/("|,|\n)/g) >= 0)
+            result = '"' + result + '"';
+          if (j > 0)
+            finalVal += ',';
+          finalVal += result;
+        }
+        return finalVal + '\n';
+      };
+
+      let csvFile = '';
+      for (let i = 0; i < rows.length; i++) {
+        csvFile += processRow(rows[i]);
+      }
+
+      const blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast(`Exported ${filename}`);
+      }
+    }
+
+    // Helper: Map Customer to Badge
+    function getCustomerBadge(cust) {
+      switch (cust) {
+        case 'Siemens':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-teal-50 text-teal-800 border border-teal-200">Siemens</span>';
+        case 'Wabtec':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">Wabtec</span>';
+        case 'Medha':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200">Medha</span>';
+        case 'Titagarh':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-purple-50 text-purple-800 border border-purple-200">Titagarh</span>';
+        case 'Escorts':
+          return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-rose-50 text-rose-800 border border-rose-200">Escorts</span>';
+        default:
+          return `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">${cust || 'Others'}</span>`;
+      }
+    }
+
+    // Helper: Map Sub-Category to Badge
+    function getSubCategoryBadge(sub) {
+      return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-800 border border-slate-200">${sub || 'Single'}</span>`;
+    }
+
+    // Helper: Map LED color (Only White & Green)
+    function getColourBadge(colour) {
+      switch (colour) {
+        case 'Green':
+          return '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>Green</span>';
+        case 'White':
+        default:
+          return '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-300"><span class="w-2 h-2 rounded-full bg-white border border-slate-400"></span>White</span>';
+      }
+    }
+
+    // Helper: Category badge styling for Components
+    function getCompCategoryBadge(cat) {
+      switch (cat) {
+        case 'Bourdon Tube':
+          return '<span class="px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">Bourdon Tube</span>';
+        case 'Movement':
+          return '<span class="px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">Movement</span>';
+        case 'Socket & Block':
+          return '<span class="px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">Socket / Block</span>';
+        case 'Case & Bezel':
+          return '<span class="px-2 py-0.5 rounded text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200">Case & Bezel</span>';
+        case 'Electronics & LED':
+          return '<span class="px-2 py-0.5 rounded text-xs font-medium bg-purple-50 text-purple-700 border border-purple-200">Electronics/LED</span>';
+        default:
+          return `<span class="px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">${cat}</span>`;
+      }
+    }
+
+    // Tab Switching
+    function setTab(tab) {
+      currentTab = tab;
+      const stockSection = document.getElementById('readyStockSection');
+      const componentsSection = document.getElementById('componentsSection');
+      const assemblySection = document.getElementById('assemblySection');
+      const dispatchSection = document.getElementById('dispatchSection');
+      
+      const tabStockBtn = document.getElementById('tabStockBtn');
+      const tabComponentsBtn = document.getElementById('tabComponentsBtn');
+      const tabAssemblyBtn = document.getElementById('tabAssemblyBtn');
+      const tabDispatchBtn = document.getElementById('tabDispatchBtn');
+
+      [tabStockBtn, tabComponentsBtn, tabAssemblyBtn, tabDispatchBtn].forEach(btn => {
+        btn.className = 'tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all text-indigo-200 hover:text-white flex items-center gap-1.5';
+      });
+
+      stockSection.classList.add('hidden');
+      componentsSection.classList.add('hidden');
+      assemblySection.classList.add('hidden');
+      dispatchSection.classList.add('hidden');
+
+      if (tab === 'stock') {
+        stockSection.classList.remove('hidden');
+        tabStockBtn.className = 'tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all bg-white text-indigo-900 shadow-sm flex items-center gap-1.5';
+      } else if (tab === 'components') {
+        componentsSection.classList.remove('hidden');
+        tabComponentsBtn.className = 'tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all bg-white text-indigo-900 shadow-sm flex items-center gap-1.5';
+      } else if (tab === 'assembly') {
+        assemblySection.classList.remove('hidden');
+        tabAssemblyBtn.className = 'tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all bg-white text-indigo-900 shadow-sm flex items-center gap-1.5';
+        calculateBOM();
+      } else {
+        dispatchSection.classList.remove('hidden');
+        tabDispatchBtn.className = 'tab-btn px-3.5 py-1.5 rounded-lg font-semibold transition-all bg-white text-indigo-900 shadow-sm flex items-center gap-1.5';
+        populateDispatchSelect();
+      }
+      updateSerialPreviews();
+    }
+
+    // Populate Gauge Select in Dispatch Form
+    function populateDispatchSelect(preselectId = null) {
+      const select = document.getElementById('dispatchGaugeSelect');
+      select.innerHTML = '';
+
+      if (stock.length === 0) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = '-- No gauges in stock --';
+        select.appendChild(opt);
+        document.getElementById('availableQtySpan').textContent = '0 pcs';
+        document.getElementById('dispatchSerialRangePreview').textContent = 'SN: None';
+        return;
+      }
+
+      stock.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.id;
+        opt.textContent = `[${item.customer || 'OEM'}] ${item.subCategory || 'Type'} - ${item.range} (${item.connection}) - ${item.quantity} pcs [${item.lotNo}]`;
+        if (preselectId && item.id === preselectId) {
+          opt.selected = true;
+        }
+        select.appendChild(opt);
+      });
+
+      updateAvailableQtyDisplay();
+    }
+
+    function updateAvailableQtyDisplay() {
+      const select = document.getElementById('dispatchGaugeSelect');
+      const selectedId = Number(select.value);
+      const item = stock.find(i => i.id === selectedId);
+      const span = document.getElementById('availableQtySpan');
+      const snSpan = document.getElementById('dispatchSerialRangePreview');
+      const qtyInput = document.getElementById('dispatchQuantity');
+      const customerInput = document.getElementById('dispatchCustomer');
+
+      if (item) {
+        span.textContent = `${item.quantity} pcs`;
+        snSpan.textContent = `Serials: ${item.serialRange || 'Standard'}`;
+        qtyInput.max = item.quantity;
+        if (!customerInput.value.trim() || customerInput.dataset.autoFilled === 'true') {
+          customerInput.value = item.customer || '';
+          customerInput.dataset.autoFilled = 'true';
+        }
+      } else {
+        span.textContent = '0 pcs';
+        snSpan.textContent = 'SN: None';
+        qtyInput.max = 0;
+      }
+    }
+
+    // Calculate BOM and Feasibility for Assembly Production
+    function calculateBOM() {
+      const dialSize = document.getElementById('asmDialSize').value;
+      const entryCategory = document.getElementById('asmEntryCategory').value;
+      const quantity = Math.max(1, parseInt(document.getElementById('asmQuantity').value, 10) || 1);
+
+      const tubeComp = components.find(c => c.category === 'Bourdon Tube' && (c.size === dialSize || c.size === 'Universal')) ||
+                       components.find(c => c.category === 'Bourdon Tube');
+      
+      const movComp = components.find(c => c.category === 'Movement' && (c.size === dialSize || c.size === 'Universal')) ||
+                      components.find(c => c.category === 'Movement');
+
+      const blockComp = components.find(c => c.category === 'Socket & Block' && c.name.toLowerCase().includes(entryCategory === 'Bottom Entry' ? 'bottom' : 'back')) ||
+                        components.find(c => c.category === 'Socket & Block');
+
+      const caseComp = components.find(c => c.category === 'Case & Bezel' && (c.size === dialSize || c.size === 'Universal')) ||
+                       components.find(c => c.category === 'Case & Bezel');
+
+      const ledComp = components.find(c => c.category === 'Electronics & LED') || null;
+
+      const requiredItems = [
+        { label: 'Bourdon Tube', comp: tubeComp },
+        { label: 'Movement Mechanism', comp: movComp },
+        { label: 'Process Block (' + (entryCategory === 'Bottom Entry' ? 'Bottom' : 'Back') + ')', comp: blockComp },
+        { label: 'Case & Bezel Ring', comp: caseComp }
+      ];
+
+      if (ledComp) {
+        requiredItems.push({ label: 'LED Circuit Module', comp: ledComp });
+      }
+
+      const bomList = document.getElementById('bomItemsList');
+      bomList.innerHTML = '';
+
+      let unitCost = 0;
+      let allAvailable = true;
+      let missingItems = [];
+
+      requiredItems.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'flex items-center justify-between py-1 border-b border-slate-100 last:border-0';
+
+        if (item.comp) {
+          const itemCost = Number(item.comp.unitCost) || 0;
+          unitCost += itemCost;
+          const needed = quantity;
+          const available = Number(item.comp.quantity) || 0;
+          const hasEnough = available >= needed;
+
+          if (!hasEnough) {
+            allAvailable = false;
+            missingItems.push(`${item.label} (Short: ${needed - available})`);
+          }
+
+          const stockText = hasEnough 
+            ? `<span class="text-emerald-600 font-medium">✓ ${available} in stock</span>`
+            : `<span class="text-rose-600 font-bold">✗ Need ${needed}, only ${available}</span>`;
+
+          li.innerHTML = `
+            <div>
+              <span class="font-medium text-slate-800">${item.label}:</span>
+              <span class="text-slate-500 block text-[11px]">${item.comp.name}</span>
+            </div>
+            <div class="text-right">
+              <span class="font-bold text-slate-700">₹ ${itemCost}</span>
+              <span class="block text-[10px]">${stockText}</span>
+            </div>
+          `;
+        } else {
+          allAvailable = false;
+          missingItems.push(item.label);
+          li.innerHTML = `
+            <span class="text-rose-500 font-semibold">${item.label}</span>
+            <span class="text-rose-500 text-xs">Part not configured in raw materials</span>
+          `;
+        }
+        bomList.appendChild(li);
+      });
+
+      const totalBatchCost = unitCost * quantity;
+      document.getElementById('bomUnitCostDisplay').textContent = `₹ ${unitCost.toLocaleString()} / pc`;
+      document.getElementById('bomBatchCostDisplay').textContent = `₹ ${totalBatchCost.toLocaleString()}`;
+
+      const notice = document.getElementById('bomFeasibilityNotice');
+      const submitBtn = document.getElementById('executeAssemblyBtn');
+
+      if (allAvailable) {
+        notice.innerHTML = '<span class="text-emerald-600 font-semibold flex items-center gap-1">✓ All components in stock. Ready to manufacture lot.</span>';
+        submitBtn.disabled = false;
+        submitBtn.className = 'w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-150 shadow-sm text-sm flex items-center justify-center gap-2 cursor-pointer';
+      } else {
+        notice.innerHTML = `<span class="text-rose-600 font-semibold block">⚠️ Shortage detected: ${missingItems.join(', ')}. Restock components before assembly.</span>`;
+        submitBtn.disabled = true;
+        submitBtn.className = 'w-full bg-slate-300 text-slate-500 font-medium py-2.5 px-4 rounded-lg transition duration-150 text-sm flex items-center justify-center gap-2 cursor-not-allowed';
+      }
+
+      updateSerialPreviews();
+      return { unitCost, totalBatchCost, allAvailable, requiredItems };
+    }
+
+    // Render Ready Stock Table & Stats
+    function renderStock() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      const selectedColour = document.getElementById('colourFilterSelect').value;
+      const tbody = document.getElementById('stockTableBody');
+      const emptyState = document.getElementById('emptyState');
+
+      const filtered = stock.filter(item => {
+        const matchesSearch = 
+          (item.customer || '').toLowerCase().includes(searchTerm) ||
+          (item.subCategory || '').toLowerCase().includes(searchTerm) ||
+          (item.lotNo || '').toLowerCase().includes(searchTerm) ||
+          (item.serialRange || '').toLowerCase().includes(searchTerm) ||
+          (item.dialSize || '').toLowerCase().includes(searchTerm) ||
+          (item.range || '').toLowerCase().includes(searchTerm) ||
+          (item.connection || '').toLowerCase().includes(searchTerm) ||
+          (item.entryCategory || '').toLowerCase().includes(searchTerm) ||
+          (item.ledType || '').toLowerCase().includes(searchTerm) ||
+          (item.ledColour || '').toLowerCase().includes(searchTerm);
+
+        const matchesCustomer = (selectedCustomerFilter === 'All') || (item.customer === selectedCustomerFilter);
+        const matchesSubCategory = (selectedSubCategoryFilter === 'All') || (item.subCategory === selectedSubCategoryFilter);
+        const matchesEntry = (selectedEntryFilter === 'All') || (item.entryCategory === selectedEntryFilter);
+        const matchesColour = (selectedColour === 'All') || (item.ledColour === selectedColour);
+
+        return matchesSearch && matchesCustomer && matchesSubCategory && matchesEntry && matchesColour;
+      });
+
+      const totalQty = stock.reduce((sum, item) => sum + Number(item.quantity), 0);
+      const bottomQty = stock.filter(i => i.entryCategory === 'Bottom Entry').reduce((sum, i) => sum + Number(i.quantity), 0);
+      const backQty = stock.filter(i => i.entryCategory === 'Back Entry').reduce((sum, i) => sum + Number(i.quantity), 0);
+      const lowStock = stock.filter(item => Number(item.quantity) < 5).length;
+      const totalDispatched = dispatches.reduce((sum, d) => sum + Number(d.quantity), 0);
+      const rawVal = components.reduce((sum, c) => sum + (Number(c.quantity) * Number(c.unitCost || 0)), 0);
+      
+      document.getElementById('totalGaugesCount').textContent = totalQty.toLocaleString();
+      document.getElementById('totalModelsCount').textContent = stock.length;
+      document.getElementById('bottomEntryCount').textContent = bottomQty.toLocaleString();
+      document.getElementById('backEntryCount').textContent = backQty.toLocaleString();
+      document.getElementById('lowStockCount').textContent = `${lowStock} low`;
+      document.getElementById('totalDispatchedCount').textContent = totalDispatched.toLocaleString();
+      document.getElementById('rawMaterialValueCount').textContent = `₹ ${rawVal.toLocaleString()}`;
+      document.getElementById('dispatchBadgeCount').textContent = dispatches.length;
+      document.getElementById('componentsBadgeCount').textContent = components.length;
+
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+        filtered.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50/75 transition-colors';
+
+          const isLow = Number(item.quantity) < 5;
+          const badgeClass = isLow ? 'bg-amber-100 text-amber-800 border-amber-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200';
+
+          const entryBadge = item.entryCategory === 'Bottom Entry'
+            ? '<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">&darr; Bottom</span>'
+            : '<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">&odot; Back</span>';
+
+          tr.innerHTML = `
+            <td class="px-4 py-3.5">
+              <span class="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 block w-fit mb-1">${item.lotNo || 'LOT-26'}</span>
+              <span class="font-mono text-[11px] text-indigo-700 font-semibold block">${item.serialRange || 'PG26-SN'}</span>
+              <span class="text-[10px] text-slate-500 font-medium block mt-0.5">Mfd: ${item.mfgMonthYear || '10/2026'}</span>
+            </td>
+            <td class="px-4 py-3.5">
+              <div class="mb-1">${getCustomerBadge(item.customer)}</div>
+              <div>${getSubCategoryBadge(item.subCategory)}</div>
+            </td>
+            <td class="px-4 py-3.5">
+              <div class="font-medium text-slate-800 text-xs mb-1">${item.dialSize}</div>
+              <div>${entryBadge}</div>
+            </td>
+            <td class="px-4 py-3.5">
+              <div class="font-semibold text-indigo-700 text-sm mb-1">${item.range}</div>
+              <div class="text-xs text-slate-600 flex items-center gap-1.5 flex-wrap">
+                <span class="font-medium">${item.ledType || 'PCB'}</span>
+                ${getColourBadge(item.ledColour)}
+                <span class="text-[11px] text-slate-400 font-mono">(${item.connection})</span>
+              </div>
+            </td>
+            <td class="px-4 py-3.5 text-center">
+              <div class="inline-flex items-center gap-1.5">
+                <button type="button" class="qty-btn decrement px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" data-id="${item.id}">-</button>
+                <span class="inline-block px-2.5 py-1 text-xs font-bold rounded-full border ${badgeClass}">
+                  ${item.quantity} pcs
+                </span>
+                <button type="button" class="qty-btn increment px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" data-id="${item.id}">+</button>
+              </div>
+            </td>
+            <td class="px-4 py-3.5 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button type="button" class="quick-dispatch-btn text-xs font-semibold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-2.5 py-1.5 rounded-lg border border-indigo-200 flex items-center gap-1 transition-colors" data-id="${item.id}" title="Dispatch from this lot">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                  </svg>
+                  <span>Dispatch</span>
+                </button>
+                <button type="button" class="delete-btn text-rose-500 hover:text-rose-700 p-1.5 rounded hover:bg-rose-50 transition-colors" data-id="${item.id}" title="Remove entry">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          deleteItem(id);
+        });
+      });
+
+      document.querySelectorAll('.qty-btn.increment').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          updateQuantity(id, 1);
+        });
+      });
+
+      document.querySelectorAll('.qty-btn.decrement').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          updateQuantity(id, -1);
+        });
+      });
+
+      document.querySelectorAll('.quick-dispatch-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          setTab('dispatch');
+          populateDispatchSelect(id);
+          document.getElementById('dispatchQuantity').focus();
+        });
+      });
+    }
+
+    // Render Raw Materials / Components Table with Costs (₹)
+    function renderComponents() {
+      const search = document.getElementById('searchCompInput').value.toLowerCase().trim();
+      const tbody = document.getElementById('componentsTableBody');
+      const emptyState = document.getElementById('componentsEmptyState');
+
+      const filtered = components.filter(c => {
+        const matchesSearch = 
+          (c.name || '').toLowerCase().includes(search) ||
+          (c.category || '').toLowerCase().includes(search) ||
+          (c.size || '').toLowerCase().includes(search) ||
+          (c.location || '').toLowerCase().includes(search);
+
+        const matchesCategory = (selectedCompFilter === 'All') || (c.category === selectedCompFilter);
+
+        return matchesSearch && matchesCategory;
+      });
+
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+        filtered.forEach(c => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50/75 transition-colors';
+
+          const isCritical = Number(c.quantity) <= Number(c.minThreshold);
+          const stockBadge = isCritical
+            ? `<span class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                ${c.quantity} pcs (Low)
+              </span>`
+            : `<span class="inline-block px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                ${c.quantity} pcs
+              </span>`;
+
+          const unitCost = Number(c.unitCost) || 0;
+          const totalVal = unitCost * Number(c.quantity);
+
+          tr.innerHTML = `
+            <td class="px-4 py-3.5">
+              <span class="font-semibold text-slate-800 text-sm block">${c.name}</span>
+              <span class="text-[11px] text-slate-400">Loc: ${c.location || 'Store'} &bull; Min: ${c.minThreshold}</span>
+            </td>
+            <td class="px-4 py-3.5">
+              <div class="space-y-1">
+                <div>${getCompCategoryBadge(c.category)}</div>
+                <span class="text-xs text-slate-500 font-medium block">Fits: ${c.size}</span>
+              </div>
+            </td>
+            <td class="px-4 py-3.5 font-semibold text-slate-700">
+              ₹ ${unitCost.toLocaleString()}
+            </td>
+            <td class="px-4 py-3.5 text-center">
+              <div class="inline-flex items-center gap-1.5">
+                <button type="button" class="comp-qty-btn decrement px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" data-id="${c.id}">-</button>
+                ${stockBadge}
+                <button type="button" class="comp-qty-btn increment px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" data-id="${c.id}">+</button>
+              </div>
+            </td>
+            <td class="px-4 py-3.5 text-right font-bold text-slate-900">
+              ₹ ${totalVal.toLocaleString()}
+            </td>
+            <td class="px-4 py-3.5 text-right">
+              <button type="button" class="comp-delete-btn text-rose-500 hover:text-rose-700 p-1.5 rounded hover:bg-rose-50 transition-colors" data-id="${c.id}" title="Remove component">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.querySelectorAll('.comp-qty-btn.increment').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          updateComponentQty(id, 10);
+        });
+      });
+
+      document.querySelectorAll('.comp-qty-btn.decrement').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          updateComponentQty(id, -10);
+        });
+      });
+
+      document.querySelectorAll('.comp-delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          deleteComponent(id);
+        });
+      });
+    }
+
+    // Render Assembly Production Runs
+    function renderAssemblyLogs() {
+      const tbody = document.getElementById('assemblyTableBody');
+      const emptyState = document.getElementById('assemblyEmptyState');
+
+      tbody.innerHTML = '';
+
+      if (assemblyLogs.length === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+        assemblyLogs.forEach(log => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50/75 transition-colors';
+
+          tr.innerHTML = `
+            <td class="px-4 py-3.5">
+              <span class="font-bold font-mono text-slate-800 text-xs block">${log.batchCode}</span>
+              <span class="text-[11px] font-mono text-indigo-600 font-semibold block">${log.serialRange || 'PG26-SN'}</span>
+              <span class="text-[10px] text-slate-400 block">${log.date} &bull; Mfd: ${log.mfgMonthYear || '10/2026'}</span>
+            </td>
+            <td class="px-4 py-3.5">
+              <div class="mb-1">${getCustomerBadge(log.customer)} ${getSubCategoryBadge(log.subCategory)}</div>
+              <span class="font-semibold text-slate-800 text-xs block">${log.dialSize} &bull; ${log.range}</span>
+              <span class="text-[11px] text-slate-500">${log.entry} | ${log.ledSpec} (${log.connection})</span>
+            </td>
+            <td class="px-4 py-3.5 text-center">
+              <span class="inline-block px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                +${log.quantity} pcs
+              </span>
+            </td>
+            <td class="px-4 py-3.5 text-right">
+              <span class="font-bold text-slate-800 text-xs block">₹ ${log.totalCost.toLocaleString()}</span>
+              <span class="text-[11px] text-slate-400">@ ₹ ${log.unitCost} / pc</span>
+            </td>
+            <td class="px-4 py-3.5 text-right">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-800">
+                Stocked
+              </span>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    // Adjust Component Quantity
+    function updateComponentQty(id, delta) {
+      const comp = components.find(c => c.id === id);
+      if (comp) {
+        const newQty = Math.max(0, Number(comp.quantity) + delta);
+        comp.quantity = newQty;
+        saveData();
+        render();
+        calculateBOM();
+        showToast(`Updated ${comp.name}: ${comp.quantity} pcs`);
+      }
+    }
+
+    // Delete Component
+    function deleteComponent(id) {
+      components = components.filter(c => c.id !== id);
+      saveData();
+      render();
+      calculateBOM();
+      showToast('Component removed from inventory');
+    }
+
+    // Render Dispatch History Table with Serial Traceability
+    function renderDispatches() {
+      const search = document.getElementById('searchDispatchInput').value.toLowerCase().trim();
+      const tbody = document.getElementById('dispatchTableBody');
+      const emptyState = document.getElementById('dispatchEmptyState');
+
+      const filtered = dispatches.filter(d => 
+        (d.challan || '').toLowerCase().includes(search) ||
+        (d.customer || '').toLowerCase().includes(search) ||
+        (d.destination || '').toLowerCase().includes(search) ||
+        (d.lotNo || '').toLowerCase().includes(search) ||
+        (d.dispatchedSerials || '').toLowerCase().includes(search) ||
+        (d.gaugeDesc || '').toLowerCase().includes(search)
+      );
+
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+        filtered.forEach(d => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50/75 transition-colors';
+
+          tr.innerHTML = `
+            <td class="px-4 py-3.5">
+              <span class="font-bold text-slate-800 text-xs block">${d.challan}</span>
+              <span class="text-[11px] text-slate-400">${d.date}</span>
+            </td>
+            <td class="px-4 py-3.5">
+              <span class="font-semibold text-slate-800 text-sm block">${d.customer}</span>
+              <span class="text-xs text-slate-500">${d.destination || 'Direct Delivery'}</span>
+            </td>
+            <td class="px-4 py-3.5">
+              <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50/60 px-2 py-0.5 rounded border border-indigo-200 block w-fit mb-1">${d.dispatchedSerials || 'PG26-SN'}</span>
+              <span class="text-[11px] text-slate-500">${d.gaugeDesc}</span>
+            </td>
+            <td class="px-4 py-3.5 text-center">
+              <span class="inline-block px-2.5 py-1 text-xs font-bold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                ${d.quantity} pcs
+              </span>
+            </td>
+            <td class="px-4 py-3.5 text-right">
+              <button type="button" class="revert-btn text-xs text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded transition-colors font-medium" data-id="${d.id}" title="Cancel dispatch and restore stock">
+                Cancel
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.querySelectorAll('.revert-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = Number(e.currentTarget.getAttribute('data-id'));
+          cancelDispatch(id);
+        });
+      });
+    }
+
+    // Render Reorder Slip Modal (Low Stock Components)
+    function renderReorderModal() {
+      const lowComps = components.filter(c => Number(c.quantity) <= Number(c.minThreshold));
+      const tbody = document.getElementById('reorderTableBody');
+      tbody.innerHTML = '';
+
+      let totalBudget = 0;
+
+      if (lowComps.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-6 text-emerald-600 font-medium">
+              ✓ All raw materials are adequately stocked! No reorders needed right now.
+            </td>
+          </tr>
+        `;
+        document.getElementById('reorderTotalBudget').textContent = '₹ 0';
+        return;
+      }
+
+      lowComps.forEach(c => {
+        const currentQty = Number(c.quantity) || 0;
+        const minThreshold = Number(c.minThreshold) || 20;
+        const targetStock = minThreshold * 2;
+        const suggestedPO = Math.max(minThreshold, targetStock - currentQty);
+        const unitCost = Number(c.unitCost) || 0;
+        const estCost = suggestedPO * unitCost;
+
+        totalBudget += estCost;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50';
+        tr.innerHTML = `
+          <td class="px-3 py-2 font-medium text-slate-800">${c.name}</td>
+          <td class="px-3 py-2 text-slate-500">${c.location || 'Store'}</td>
+          <td class="px-3 py-2 text-center font-bold text-rose-600">${currentQty}</td>
+          <td class="px-3 py-2 text-center text-slate-600">${minThreshold}</td>
+          <td class="px-3 py-2 text-center font-bold text-indigo-700 bg-indigo-50/50">${suggestedPO} pcs</td>
+          <td class="px-3 py-2 text-right font-bold text-slate-800">₹ ${estCost.toLocaleString()}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('reorderTotalBudget').textContent = `₹ ${totalBudget.toLocaleString()}`;
+    }
+
+    // Export Reorder Slip as CSV
+    function downloadReorderCSV() {
+      const lowComps = components.filter(c => Number(c.quantity) <= Number(c.minThreshold));
+      if (lowComps.length === 0) {
+        showToast('No low stock components to export');
+        return;
+      }
+
+      const rows = [
+        ['Purchase Reorder Slip - Pressure Gauge Department'],
+        ['Generated Date', new Date().toISOString().split('T')[0]],
+        [''],
+        ['Part Name', 'Category', 'Applicable Size', 'Current Stock', 'Min Threshold', 'Suggested Order Qty', 'Unit Cost (INR)', 'Estimated Total (INR)', 'Storage Location']
+      ];
+
+      lowComps.forEach(c => {
+        const currentQty = Number(c.quantity) || 0;
+        const minThreshold = Number(c.minThreshold) || 20;
+        const suggestedPO = Math.max(minThreshold, (minThreshold * 2) - currentQty);
+        const unitCost = Number(c.unitCost) || 0;
+        const estCost = suggestedPO * unitCost;
+
+        rows.push([
+          c.name,
+          c.category,
+          c.size,
+          currentQty,
+          minThreshold,
+          suggestedPO,
+          unitCost,
+          estCost,
+          c.location || 'Store'
+        ]);
+      });
+
+      exportToCSV(`PressureGauge_Reorder_PO_${new Date().toISOString().split('T')[0]}.csv`, rows);
+    }
+
+    // Master Render
+    function render() {
+      renderStock();
+      renderComponents();
+      renderAssemblyLogs();
+      renderDispatches();
+      updateSerialPreviews();
+    }
+
+    // Adjust Ready Stock Quantity
+    function updateQuantity(id, delta) {
+      const item = stock.find(i => i.id === id);
+      if (item) {
+        const newQty = Number(item.quantity) + delta;
+        if (newQty <= 0) {
+          deleteItem(id);
+          return;
+        }
+        item.quantity = newQty;
+        saveData();
+        render();
+        populateDispatchSelect();
+        showToast(`Stock updated: ${item.customer} ${item.subCategory} (${item.range})`);
+      }
+    }
+
+    // Delete Ready Gauge Item
+    function deleteItem(id) {
+      stock = stock.filter(item => item.id !== id);
+      saveData();
+      render();
+      populateDispatchSelect();
+      showToast('Gauge removed from ready stock');
+    }
+
+    // Cancel / Revert Dispatch (Restores Stock!)
+    function cancelDispatch(dispatchId) {
+      const dispatchRecord = dispatches.find(d => d.id === dispatchId);
+      if (!dispatchRecord) return;
+
+      const item = stock.find(i => i.id === dispatchRecord.gaugeId);
+      if (item) {
+        item.quantity = Number(item.quantity) + Number(dispatchRecord.quantity);
+      }
+
+      dispatches = dispatches.filter(d => d.id !== dispatchId);
+      saveData();
+      render();
+      populateDispatchSelect();
+      showToast(`Cancelled ${dispatchRecord.challan}: Restored ${dispatchRecord.quantity} pcs to stock`);
+    }
+
+    // Handle Direct Ready Gauge Submit (with Custom Thread Support)
+    document.getElementById('addGaugeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const customer = document.getElementById('customerTarget').value;
+      const subCategory = document.getElementById('gaugeSubCategory').value;
+      const entryCategory = document.getElementById('entryCategory').value;
+      const dialSize = document.getElementById('dialSize').value;
+      const range = document.getElementById('pressureRange').value.trim();
+      const ledType = document.getElementById('ledType').value;
+      const ledColour = document.getElementById('ledColour').value;
+      
+      let connection = document.getElementById('connectionType').value;
+      if (connection === 'Other') {
+        const manualThread = document.getElementById('connectionOtherInput').value.trim();
+        if (!manualThread) {
+          showToast('Please type your custom thread size');
+          document.getElementById('connectionOtherInput').focus();
+          return;
+        }
+        connection = manualThread;
+      }
+
+      const quantity = parseInt(document.getElementById('quantity').value, 10);
+
+      if (!range || isNaN(quantity) || quantity <= 0) {
+        showToast('Please enter a valid range and quantity');
+        return;
+      }
+
+      const startSerialVal = parseInt(document.getElementById('startSerialInput').value, 10);
+      const serialStart = isNaN(startSerialVal) || startSerialVal <= 0 ? nextSerialCounter : startSerialVal;
+      const serialEnd = serialStart + quantity - 1;
+      const serialRange = `${formatSerial(serialStart)} → ${formatSerial(serialEnd)}`;
+      const mfgMonthYear = formatMonthYear(document.getElementById('mfgMonthYear').value);
+
+      const lotNo = getLotCode(nextLotCounter);
+
+      nextLotCounter++;
+      nextSerialCounter = Math.max(nextSerialCounter, serialEnd + 1);
+
+      const newItem = {
+        id: Date.now(),
+        customer,
+        subCategory,
+        lotNo,
+        lotSize: quantity,
+        serialStart,
+        serialEnd,
+        serialRange,
+        mfgMonthYear,
+        entryCategory,
+        dialSize,
+        range,
+        ledType,
+        ledColour,
+        connection,
+        quantity
+      };
+
+      stock.unshift(newItem);
+      saveData();
+      render();
+      populateDispatchSelect();
+
+      document.getElementById('pressureRange').value = '';
+      document.getElementById('quantity').value = '';
+      document.getElementById('connectionOtherInput').value = '';
+      if (document.getElementById('connectionType').value === 'Other') {
+        document.getElementById('connectionType').value = '1/2" BSP (M)';
+        document.getElementById('connectionOtherWrap').classList.add('hidden');
+      }
+      if (document.getElementById('startSerialInput')) document.getElementById('startSerialInput').value = nextSerialCounter;
+      if (document.getElementById('asmStartSerialInput')) document.getElementById('asmStartSerialInput').value = nextSerialCounter;
+      updateSerialPreviews();
+      document.getElementById('pressureRange').focus();
+
+      showToast(`Added ${quantity} ${subCategory} gauges for ${customer}! Lot: ${lotNo}`);
+    });
+
+    // Handle Add Component Submit (with Unit Cost)
+    document.getElementById('addComponentForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('compName').value.trim();
+      const category = document.getElementById('compCategory').value;
+      const size = document.getElementById('compSize').value;
+      const unitCost = parseFloat(document.getElementById('compUnitCost').value) || 0;
+      const quantity = parseInt(document.getElementById('compQuantity').value, 10);
+      const minThreshold = parseInt(document.getElementById('compMinThreshold').value, 10);
+      const location = document.getElementById('compLocation').value.trim() || 'General Store';
+
+      if (!name || isNaN(quantity) || quantity < 0) {
+        showToast('Please enter a valid component name and quantity');
+        return;
+      }
+
+      const existing = components.find(c => 
+        c.name.toLowerCase() === name.toLowerCase() &&
+        c.category === category &&
+        c.size === size
+      );
+
+      if (existing) {
+        existing.quantity = Number(existing.quantity) + quantity;
+        existing.unitCost = unitCost;
+        showToast(`Updated ${name}: added ${quantity} pcs @ ₹ ${unitCost}`);
+      } else {
+        const newComp = {
+          id: Date.now(),
+          name,
+          category,
+          size,
+          unitCost,
+          quantity,
+          minThreshold: isNaN(minThreshold) ? 20 : minThreshold,
+          location
+        };
+        components.unshift(newComp);
+        showToast(`Added ${name} to raw materials (@ ₹ ${unitCost}/pc)`);
+      }
+
+      saveData();
+      render();
+      calculateBOM();
+
+      document.getElementById('compName').value = '';
+      document.getElementById('compQuantity').value = '';
+      document.getElementById('compUnitCost').value = '';
+      document.getElementById('compLocation').value = '';
+      document.getElementById('compName').focus();
+    });
+
+    // Handle Assembly Production Execution (with Custom Thread Support)
+    document.getElementById('assemblyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const customer = document.getElementById('asmCustomer').value;
+      const subCategory = document.getElementById('asmSubCategory').value;
+      const dialSize = document.getElementById('asmDialSize').value;
+      const entryCategory = document.getElementById('asmEntryCategory').value;
+      const range = document.getElementById('asmPressureRange').value.trim();
+      const ledType = document.getElementById('asmLedType').value;
+      const ledColour = document.getElementById('asmLedColour').value;
+
+      let connection = document.getElementById('asmConnection').value;
+      if (connection === 'Other') {
+        const manualThread = document.getElementById('asmConnectionOtherInput').value.trim();
+        if (!manualThread) {
+          showToast('Please type your custom thread size');
+          document.getElementById('asmConnectionOtherInput').focus();
+          return;
+        }
+        connection = manualThread;
+      }
+
+      const quantity = parseInt(document.getElementById('asmQuantity').value, 10);
+
+      const bomResult = calculateBOM();
+
+      if (!bomResult.allAvailable) {
+        showToast('Cannot assemble! Insufficient components in raw materials.');
+        return;
+      }
+
+      bomResult.requiredItems.forEach(item => {
+        if (item.comp) {
+          item.comp.quantity = Math.max(0, Number(item.comp.quantity) - quantity);
+        }
+      });
+
+      const asmStartSerialVal = parseInt(document.getElementById('asmStartSerialInput').value, 10);
+      const serialStart = isNaN(asmStartSerialVal) || asmStartSerialVal <= 0 ? nextSerialCounter : asmStartSerialVal;
+      const serialEnd = serialStart + quantity - 1;
+      const serialRange = `${formatSerial(serialStart)} → ${formatSerial(serialEnd)}`;
+      const mfgMonthYear = formatMonthYear(document.getElementById('asmMfgMonthYear').value);
+
+      const lotNo = getLotCode(nextLotCounter);
+
+      nextLotCounter++;
+      nextSerialCounter = Math.max(nextSerialCounter, serialEnd + 1);
+
+      stock.unshift({
+        id: Date.now(),
+        customer,
+        subCategory,
+        lotNo,
+        lotSize: quantity,
+        serialStart,
+        serialEnd,
+        serialRange,
+        mfgMonthYear,
+        mfgMonthYear,
+        entryCategory,
+        dialSize,
+        range,
+        ledType,
+        ledColour,
+        connection,
+        quantity
+      });
+
+      const today = new Date().toISOString().split('T')[0];
+      const ledSpec = `${ledType} (${ledColour})`;
+
+      assemblyLogs.unshift({
+        id: Date.now(),
+        date: today,
+        mfgMonthYear,
+        batchCode: lotNo,
+        customer,
+        subCategory,
+        serialRange,
+        dialSize,
+        range,
+        entry: entryCategory,
+        ledSpec,
+        connection,
+        quantity,
+        unitCost: bomResult.unitCost,
+        totalCost: bomResult.totalBatchCost
+      });
+
+      saveData();
+      render();
+      calculateBOM();
+
+      showToast(`Assembled ${quantity} pcs for ${customer}! Lot: ${lotNo} (${serialRange})`);
+    });
+
+    // Handle Dispatch Form Submit
+    document.getElementById('dispatchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const gaugeId = Number(document.getElementById('dispatchGaugeSelect').value);
+      const customer = document.getElementById('dispatchCustomer').value.trim();
+      const challan = document.getElementById('dispatchChallan').value.trim();
+      const date = document.getElementById('dispatchDate').value;
+      const quantity = parseInt(document.getElementById('dispatchQuantity').value, 10);
+      const destination = document.getElementById('dispatchNotes').value.trim();
+
+      const stockItem = stock.find(i => i.id === gaugeId);
+
+      if (!stockItem) {
+        showToast('Please select a valid gauge from stock');
+        return;
+      }
+
+      if (isNaN(quantity) || quantity <= 0) {
+        showToast('Please enter a valid dispatch quantity');
+        return;
+      }
+
+      if (quantity > stockItem.quantity) {
+        showToast(`Cannot dispatch ${quantity} pcs! Only ${stockItem.quantity} pcs in ready stock.`);
+        return;
+      }
+
+      const dispatchedStart = stockItem.serialStart || 5000;
+      const dispatchedEnd = dispatchedStart + quantity - 1;
+      const dispatchedSerials = `${formatSerial(dispatchedStart)} → ${formatSerial(dispatchedEnd)}`;
+
+      stockItem.serialStart = dispatchedEnd + 1;
+      stockItem.quantity -= quantity;
+      if (stockItem.quantity > 0) {
+        stockItem.serialRange = `${formatSerial(stockItem.serialStart)} → ${formatSerial(stockItem.serialEnd)}`;
+      } else {
+        stockItem.serialRange = 'Depleted';
+      }
+
+      const gaugeDesc = `[${stockItem.customer || 'OEM'}] ${stockItem.subCategory || 'Gauge'} | ${stockItem.dialSize} | ${stockItem.range} | ${stockItem.ledType} (${stockItem.ledColour})`;
+
+      const newDispatch = {
+        id: Date.now(),
+        gaugeId: stockItem.id,
+        challan,
+        date,
+        customer,
+        destination,
+        gaugeDesc,
+        lotNo: stockItem.lotNo,
+        dispatchedSerials,
+        quantity
+      };
+
+      dispatches.unshift(newDispatch);
+      saveData();
+      render();
+      populateDispatchSelect(gaugeId);
+
+      document.getElementById('dispatchCustomer').value = '';
+      delete document.getElementById('dispatchCustomer').dataset.autoFilled;
+      document.getElementById('dispatchChallan').value = '';
+      document.getElementById('dispatchQuantity').value = '';
+      document.getElementById('dispatchNotes').value = '';
+
+      showToast(`Dispatched ${quantity} pcs for ${customer}! Serials: ${dispatchedSerials}`);
+    });
+
+    // Connection Dropdown "Other" Toggle Listeners
+    document.getElementById('connectionType').addEventListener('change', (e) => {
+      const wrap = document.getElementById('connectionOtherWrap');
+      if (e.target.value === 'Other') {
+        wrap.classList.remove('hidden');
+        document.getElementById('connectionOtherInput').focus();
+      } else {
+        wrap.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('asmConnection').addEventListener('change', (e) => {
+      const wrap = document.getElementById('asmConnectionOtherWrap');
+      if (e.target.value === 'Other') {
+        wrap.classList.remove('hidden');
+        document.getElementById('asmConnectionOtherInput').focus();
+      } else {
+        wrap.classList.add('hidden');
+      }
+    });
+
+    // Search and Filter Listeners
+    document.getElementById('searchInput').addEventListener('input', () => {
+      renderStock();
+    });
+
+    document.getElementById('subCategoryFilterSelect').addEventListener('change', (e) => {
+      selectedSubCategoryFilter = e.target.value;
+      renderStock();
+    });
+
+    document.getElementById('colourFilterSelect').addEventListener('change', () => {
+      renderStock();
+    });
+
+    document.getElementById('searchCompInput').addEventListener('input', () => {
+      renderComponents();
+    });
+
+    document.getElementById('searchDispatchInput').addEventListener('input', () => {
+      renderDispatches();
+    });
+
+    document.getElementById('dispatchGaugeSelect').addEventListener('change', () => {
+      updateAvailableQtyDisplay();
+    });
+
+    // Lot Size & Serial Range dynamic auto-calculation listeners
+    document.getElementById('quantity').addEventListener('input', updateSerialPreviews);
+    document.getElementById('startSerialInput').addEventListener('input', updateSerialPreviews);
+    document.getElementById('mfgMonthYear').addEventListener('change', updateSerialPreviews);
+    
+    document.getElementById('asmQuantity').addEventListener('input', () => {
+      updateSerialPreviews();
+      calculateBOM();
+    });
+    document.getElementById('asmStartSerialInput').addEventListener('input', () => {
+      updateSerialPreviews();
+      calculateBOM();
+    });
+    document.getElementById('asmMfgMonthYear').addEventListener('change', updateSerialPreviews);
+
+    // BOM Assembly Form change listeners
+    ['asmCustomer', 'asmSubCategory', 'asmDialSize', 'asmEntryCategory', 'asmPressureRange', 'asmLedType', 'asmLedColour'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('change', calculateBOM);
+        el.addEventListener('input', calculateBOM);
+      }
+    });
+
+    // Tab buttons
+    document.getElementById('tabStockBtn').addEventListener('click', () => setTab('stock'));
+    document.getElementById('tabComponentsBtn').addEventListener('click', () => setTab('components'));
+    document.getElementById('tabAssemblyBtn').addEventListener('click', () => setTab('assembly'));
+    document.getElementById('tabDispatchBtn').addEventListener('click', () => setTab('dispatch'));
+    document.getElementById('switchToAssemblyBtn').addEventListener('click', () => setTab('assembly'));
+
+    // Customer OEM Filter Button Clicks
+    document.querySelectorAll('.customer-filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        selectedCustomerFilter = e.currentTarget.getAttribute('data-customer');
+        
+        document.querySelectorAll('.customer-filter-btn').forEach(b => {
+          b.className = 'customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200';
+        });
+        e.currentTarget.className = 'customer-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-indigo-600 text-white';
+
+        renderStock();
+      });
+    });
+
+    // Entry Category Filter Button Clicks
+    document.querySelectorAll('.category-filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        selectedEntryFilter = e.currentTarget.getAttribute('data-entry');
+        
+        document.querySelectorAll('.category-filter-btn').forEach(b => {
+          b.className = 'category-filter-btn px-2.5 py-0.5 rounded text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200';
+        });
+        e.currentTarget.className = 'category-filter-btn px-2.5 py-0.5 rounded text-xs font-semibold transition-colors bg-indigo-600 text-white';
+
+        renderStock();
+      });
+    });
+
+    // Category Filter Button Clicks (Components)
+    document.querySelectorAll('.comp-filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        selectedCompFilter = e.currentTarget.getAttribute('data-cat');
+        
+        document.querySelectorAll('.comp-filter-btn').forEach(b => {
+          b.className = 'comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200';
+        });
+        e.currentTarget.className = 'comp-filter-btn px-2.5 py-1 rounded-full text-xs font-semibold transition-colors bg-purple-600 text-white';
+
+        renderComponents();
+      });
+    });
+
+    // Reorder Slip Modal Controls
+    const reorderModal = document.getElementById('reorderModal');
+    document.getElementById('openReorderModalBtn').addEventListener('click', () => {
+      renderReorderModal();
+      reorderModal.classList.remove('hidden');
+    });
+
+    document.getElementById('closeReorderModalBtn').addEventListener('click', () => {
+      reorderModal.classList.add('hidden');
+    });
+
+    document.getElementById('closeReorderModalBtn2').addEventListener('click', () => {
+      reorderModal.classList.add('hidden');
+    });
+
+    document.getElementById('downloadReorderCSVBtn').addEventListener('click', () => {
+      downloadReorderCSV();
+    });
+
+    // Export CSV Actions (with Customer, Sub-Category, and Connection)
+    document.getElementById('exportStockCSVBtn').addEventListener('click', () => {
+      const rows = [
+        ['Customer / OEM', 'Sub-Category / Type', 'Lot Number', 'Lot Size', 'Serial Range', 'Entry Category', 'Dial Size', 'Pressure Range', 'LED Type', 'LED Colour', 'Connection', 'Remaining Ready Quantity']
+      ];
+      stock.forEach(i => {
+        rows.push([i.customer || 'Others', i.subCategory || 'Single', i.lotNo, i.lotSize, i.serialRange, i.entryCategory, i.dialSize, i.range, i.ledType || 'PCB', i.ledColour || 'White', i.connection, i.quantity]);
+      });
+      exportToCSV(`Ready_Gauge_Stock_RailwayOEM_${new Date().toISOString().split('T')[0]}.csv`, rows);
+    });
+
+    document.getElementById('exportCompCSVBtn').addEventListener('click', () => {
+      const rows = [
+        ['Part Name', 'Category', 'Applicable Size', 'Rack Location', 'Unit Cost (INR)', 'Stock Quantity', 'Min Alert Threshold', 'Total Valuation (INR)']
+      ];
+      components.forEach(c => {
+        const cost = Number(c.unitCost) || 0;
+        const total = cost * Number(c.quantity);
+        rows.push([c.name, c.category, c.size, c.location || 'Store', cost, c.quantity, c.minThreshold, total]);
+      });
+      exportToCSV(`Raw_Materials_Valuation_${new Date().toISOString().split('T')[0]}.csv`, rows);
+    });
+
+    document.getElementById('exportAssemblyCSVBtn').addEventListener('click', () => {
+      const rows = [
+        ['Lot / Batch Code', 'Customer / OEM', 'Sub-Category', 'Serial Number Range', 'Assembly Date', 'Dial Size', 'Pressure Range', 'Entry Orientation', 'LED Specification', 'Connection Thread', 'Lot Size', 'Unit Cost (INR)', 'Total Production Cost (INR)']
+      ];
+      assemblyLogs.forEach(l => {
+        rows.push([l.batchCode, l.customer || 'OEM', l.subCategory || 'Single', l.serialRange, l.date, l.dialSize, l.range, l.entry, l.ledSpec, l.connection || '1/2" BSP', l.quantity, l.unitCost, l.totalCost]);
+      });
+      exportToCSV(`Assembly_Production_Logs_${new Date().toISOString().split('T')[0]}.csv`, rows);
+    });
+
+    document.getElementById('exportDispatchCSVBtn').addEventListener('click', () => {
+      const rows = [
+        ['Delivery Challan No', 'Dispatch Date', 'Customer / Consignee', 'Destination / PO Notes', 'Gauge Specification', 'Lot Number', 'Dispatched Serial Numbers', 'Dispatched Quantity']
+      ];
+      dispatches.forEach(d => {
+        rows.push([d.challan, d.date, d.customer, d.destination || 'Direct', d.gaugeDesc, d.lotNo || 'LOT', d.dispatchedSerials, d.quantity]);
+      });
+      exportToCSV(`Outward_Dispatches_Ledger_${new Date().toISOString().split('T')[0]}.csv`, rows);
+    });
+
+    // Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      loadData();
+      
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('dispatchDate').value = today;
+
+      if (document.getElementById('startSerialInput')) {
+        document.getElementById('startSerialInput').value = nextSerialCounter;
+      }
+      if (document.getElementById('asmStartSerialInput')) {
+        document.getElementById('asmStartSerialInput').value = nextSerialCounter;
+      }
+      populateDispatchSelect();
+      render();
+      calculateBOM();
+      updateSerialPreviews();
+    });
+  </script>
+</body>
+</html>
